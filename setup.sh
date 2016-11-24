@@ -46,6 +46,20 @@ install_oh_my_zsh(){
     fi
 }
 
+install_vundle(){
+    if [ -d "${VUNDLE}" ]; then
+        cd "${VUNDLE}"
+        echo "Change directory to `pwd`"
+        echo "${VUNDLE} exists. Git pull to update..."
+        git pull
+        cd - > /dev/null 2>&1
+        echo "Change directory back to `pwd`"
+    else
+        echo "${VUNDLE} not exist. Git clone to create one..."
+        git clone https://github.com/VundleVim/Vundle.vim.git ${VUNDLE}
+        vim +PluginInstall +qall
+    fi
+
 main(){
     check_software_exist
     install_oh_my_zsh
