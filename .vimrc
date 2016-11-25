@@ -70,7 +70,6 @@ filetype plugin indent on   " required
 set encoding=utf-8
 set nu  " show the line number
 
-filetype plugin indent on   " enables filetype detection
 " tmhedberg/SimpylFold
 let g:SimpylFold_docstring_preview=1
 
@@ -110,21 +109,22 @@ set smartindent
 
 
 au BufNewFile,BufRead *.py
-\ set tabstop=4
-\ set softtabstop=4
-\ set shiftwidth=4
-\ set textwidth=79
-\ set expandtab
-\ set autoindent
-\ set fileformat=unix
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
 
-au BufNewFile,BufRead *.js, *.html, *.css
-\ set tabstop=2
-\ set softtabstop=4
-\ set shiftwidth=2
+au BufNewFile,BufRead *.js,*.html,*.css
+    \ set tabstop=2 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=2 |
 
 " mark extra whitespace as bad, and probably color it red
-au BufRead,BufNewFile *.py, *.pyw, *.c, *.h match BadWhitespace /\s\+$/
+"highlight BadWhitespace ctermbg=red guibg=red
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Search
 set hlsearch  " Highlight the search result
