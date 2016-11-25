@@ -2,60 +2,14 @@
 " http://tntcastle.net
 
 " ===============================================================================
-" General Configuration
+" Info
+"   leader: default is `\`, detailed with `:help <leader>`
 " ===============================================================================
 
-set nocompatible  " Use the vim's keyboard setting, not vi
 
-if filereadable(expand("~/.vim/vimrc.vundle"))
-    source ~/.vim/vimrc.vundle
-endif
-
-set nu  " show the line number
-syntax on  " Syntax highlighting
-filetype on  " File type detection
-filetype plugin on  " Allow filetype plugin
-filetype indent on  " Use different indent for different filetype
-
-" Tab and Indent
-set tabstop=4  " set the width of <Tab> to 4 spaces
-set softtabstop=4  "remove 4 spaces in each backspace
-set shiftwidth=4  " spaces in each indent
-set smarttab  " insert tabs on the start of a line according to shiftwidth, not tabstop
-set expandtab  " use space to instead of tab
-set autoindent  " Use the indent of the previous line for a new line.
-set smartindent
-
-" Search
-set hlsearch  " Highlight the search result
-set incsearch  " Real-time search
-set ignorecase  " Ignore case sensitive
-set smartcase  " Still case sensitive when have one or more upper character
-set showmatch  " When a bracket is inserted, briefly jump to the matching one
-
-" Display
-set ruler  " Show the current cursor position
-set showcmd  " Show the inputting command in bottom
-set showmode  " Show current VIM mode
-
-
-" Other
-set nobackup  " no backup behavior
-set history=2000  " Numbers of commands want to remember
-set backspace=indent,eol,start  " Configure backspace so it acts as it should act
-
-" Enhancement
-filetype plugin indent on  " required
-
-" FileType Settings
-autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-
-
-" ===============================================================================
-" Vunble Configuration
-" ===============================================================================
-set nocompatible    " be iMproved, required
-filetype off        " required
+" vundle
+set nocompatible  " required
+filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -67,21 +21,34 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " My Vundles here
-"
-" Display
-"Plugin 'powerline/powerline'        " status bar display enhancement
-Plugin 'vim-airline/vim-airline'    " Status bar display enhancement 
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/rainbow_parentheses.vim'   " Parentheses display enhancement
-Plugin 'altercation/vim-colors-solarized'   " theme solarized
 
-Plugin 'scrooloose/syntastic'       " systastic
-
-" Nav
+" Nav / tabs
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 
-" Python
+" search
+Plugin 'kien/ctrlp.vim'
+
+" python syntax check / highlight
+Plugin 'scrooloose/syntastic'       " systastic
 Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/indentpython.vim'
+
+" auto-completion stuff
+Plugin 'Valloric/YouCompleteMe'     " auto complete
+
+" code folding
+Plugin 'tmhedberg/SimpylFold'
+
+" display
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+
+" git
+Plugin 'tpope/vim-fugitive'
+
+" statusbar
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 
 " All of your Plugins mus be added before the following line
@@ -99,9 +66,29 @@ filetype plugin indent on   " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" ------------------------------------------------------------------------------
+" default settings
+set encoding=utf-8
+set nu  " show the line number
+
+filetype plugin indent on   " enables filetype detection
+" tmhedberg/SimpylFold
+let g:SimpylFold_docstring_preview=1
+
+" Valloric/YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" change color scheme
+call togglebg#map("<F5>")
+if has('gui_running')
+    set background=dark
+    colorscheme solarized
+else 
+    colorscheme zenburn
+endif
+
+
 " Nerdtree
-" ------------------------------------------------------------------------------
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.egg$', '^\.git$']
@@ -111,43 +98,71 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.egg$', '^\.git$']
 let g:NERDTreeMapOpenSplit = 's'
 let g:NERDTreeMapOpenVSplit = 'v'
 
-" ------------------------------------------------------------------------------
-" vim-airline/vim-airline
-" ------------------------------------------------------------------------------
-"if !exists('g:airline_symbols')
-"    let g:airline_symbols = {}
-"endif
-"let g:airline_left_sep = '▶'
-"let g:airline_left_alt_sep = '❯'
-"let g:airline_right_sep = '◀'
-"let g:airline_right_alt_sep = '❮'
-"let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.branch = '⎇'
+" Set the default file encoding to UTF-8:
 
-" ------------------------------------------------------------------------------
-" kien/rainbow_parentheses.vim
-" ------------------------------------------------------------------------------
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+" For full syntax highlighting:
+let python_highlight_all=1
+syntax on
 
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" Tab and Indent
+set smarttab  " insert tabs on the start of a line according to shiftwidth, not tabstop
+set smartindent
+
+
+au BufNewFile,BufRead *.py
+\ set tabstop=4
+\ set softtabstop=4
+\ set shiftwidth=4
+\ set textwidth=79
+\ set expandtab
+\ set autoindent
+\ set fileformat=unix
+
+au BufNewFile,BufRead *.js, *.html, *.css
+\ set tabstop=2
+\ set softtabstop=4
+\ set shiftwidth=2
+
+" mark extra whitespace as bad, and probably color it red
+au BufRead,BufNewFile *.py, *.pyw, *.c, *.h match BadWhitespace /\s\+$/
+
+" Search
+set hlsearch  " Highlight the search result
+set incsearch  " Real-time search
+set ignorecase  " Ignore case sensitive
+set smartcase  " Still case sensitive when have one or more upper character
+set showmatch  " When a bracket is inserted, briefly jump to the matching one
+
+" Display set ruler  " Show the current cursor position
+set showcmd  " Show the inputting command in bottom
+set showmode  " Show current VIM mode
+set splitbelow  " split panes to bottom
+set splitright  " split panes to right
+
+" split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
+" Other
+set nobackup  " no backup behavior
+set history=2000  " Numbers of commands want to remember
+set backspace=indent,eol,start  " Configure backspace so it acts as it should act
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
