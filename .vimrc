@@ -1,14 +1,60 @@
-" tntC4stl3 <blackhumour.gj@gmail.com>
-" http://tntcastle.net
+" ===============================================================================
+" * For Vim Configuration File
+"
+" * VIM 7.4
+"
+" * @author		tntC4stl3 <blackhumour.gj@gmail.com>
+" * @link		http://tntcastle.net
+"
+" * Info
+"		leader: default is `\`, detailed with `:help <leader>`
+" ===============================================================================
 
 " ===============================================================================
-" Info
-"   leader: default is `\`, detailed with `:help <leader>`
+" 
+" 1. General Configuration
+"
 " ===============================================================================
-
-
-" vundle
 set nocompatible  " required
+
+if filereadable(expand("~/.vim/vimrc.vundle"))
+    source ~/.vim/vimrc.vundle
+endif
+
+set encoding=utf-8
+set nu  " show the line number
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smarttab  " insert tabs on the start of a line according to shiftwidth, not tabstop
+
+" Search
+set hlsearch  " Highlight the search result
+set incsearch  " Real-time search
+set ignorecase  " Ignore case sensitive
+set smartcase  " Still case sensitive when have one or more upper character
+set showmatch  " When a bracket is inserted, briefly jump to the matching one
+
+" Display set ruler  " Show the current cursor position
+set showcmd  " Show the inputting command in bottom
+set showmode  " Show current VIM mode
+set splitbelow  " split panes to bottom
+set splitright  " split panes to right
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Other
+set nobackup  " no backup behavior
+set history=2000  " Numbers of commands want to remember
+set backspace=indent,eol,start  " Configure backspace so it acts as it should act
+
+" ===============================================================================
+"
+" 2. Vundle & Plugins
+"
+" ===============================================================================
 filetype off
 
 " set the runtime path to include Vundle and initialize
@@ -17,8 +63,7 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'	" let Vundle manage Vundle, required
 
 " My Vundles here
 
@@ -36,6 +81,7 @@ Plugin 'vim-scripts/indentpython.vim'
 
 " auto-completion stuff
 Plugin 'Valloric/YouCompleteMe'     " auto complete
+Plugin 'docunext/closetag.vim'		" auto complete html/xml tag
 
 " code folding
 Plugin 'tmhedberg/SimpylFold'
@@ -67,10 +113,11 @@ filetype plugin indent on   " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" default settings
-set encoding=utf-8
-set nu  " show the line number
-
+" ===============================================================================
+"
+" 3. Plugins Configuration
+"
+" ===============================================================================
 " tmhedberg/SimpylFold
 let g:SimpylFold_docstring_preview=1
 
@@ -104,9 +151,6 @@ let g:NERDTreeMapOpenVSplit = 'v'
 let python_highlight_all=1
 syntax on
 
-" Tab and Indent
-set smarttab  " insert tabs on the start of a line according to shiftwidth, not tabstop
-
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -125,38 +169,6 @@ au BufNewFile,BufRead *.js,*.html,*.css
 "highlight BadWhitespace ctermbg=red guibg=red
 "au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-" Search
-set hlsearch  " Highlight the search result
-set incsearch  " Real-time search
-set ignorecase  " Ignore case sensitive
-set smartcase  " Still case sensitive when have one or more upper character
-set showmatch  " When a bracket is inserted, briefly jump to the matching one
-
-" Display set ruler  " Show the current cursor position
-set showcmd  " Show the inputting command in bottom
-set showmode  " Show current VIM mode
-set splitbelow  " split panes to bottom
-set splitright  " split panes to right
-
-" split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Map ; to : and save a million keystrokes
-nnoremap ; :
-
-" Other
-set nobackup  " no backup behavior
-set history=2000  " Numbers of commands want to remember
-set backspace=indent,eol,start  " Configure backspace so it acts as it should act
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
-" Enable folding with the spacebar
-nnoremap <space> za
 
 " python with virtualenv support
 py << EOF
@@ -175,3 +187,20 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 "let g:airline#extensions#tabline#enabled = 1
+
+" ===============================================================================
+"
+" 5. Custom Map
+"
+" ===============================================================================
+" split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Map ; to : and save a million keystrokes
+nnoremap ; :
+
+" Enable folding with the spacebar
+nnoremap <space> za
