@@ -106,8 +106,6 @@ syntax on
 
 " Tab and Indent
 set smarttab  " insert tabs on the start of a line according to shiftwidth, not tabstop
-set smartindent
-
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
