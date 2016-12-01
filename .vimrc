@@ -41,12 +41,16 @@ set showmode  " Show current VIM mode
 set splitbelow  " split panes to bottom
 set splitright  " split panes to right
 
+set cursorcolumn		" standout current column
+set cursorline			" standout current line
+
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 
 " Other
 set nobackup  " no backup behavior
+set noswapfile	" close swap file
 set history=2000  " Numbers of commands want to remember
 set backspace=indent,eol,start  " Configure backspace so it acts as it should act
 
@@ -164,6 +168,7 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ set tabstop=2 |
     \ set softtabstop=4 |
     \ set shiftwidth=2 |
+    \ set textwidth=0 |
 
 " mark extra whitespace as bad, and probably color it red
 "highlight BadWhitespace ctermbg=red guibg=red
