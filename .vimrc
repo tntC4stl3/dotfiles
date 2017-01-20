@@ -170,6 +170,12 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ set shiftwidth=2 |
     \ set textwidth=0 |
 
+au BufNewFile,BufRead *.yml
+	\ set tabstop=2 |
+	\ set softtabstop=2 |
+	\ set shiftwidth=2 |
+	\ set textwidth=0
+
 " mark extra whitespace as bad, and probably color it red
 "highlight BadWhitespace ctermbg=red guibg=red
 "au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
@@ -198,6 +204,10 @@ endif
 " 5. Custom Map
 "
 " ===============================================================================
+" Stop F1 from poping out system help
+" And use F1 to Escape
+nnoremap <F1> <Esc>
+
 " split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
