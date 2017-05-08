@@ -59,13 +59,15 @@ install_vundle(){
         git clone https://github.com/VundleVim/Vundle.vim.git ${VUNDLE}
         vim +PluginInstall +qall
     fi
+}
 
 main(){
     check_software_exist
     install_oh_my_zsh
     create_symlinks
+	install_vundle
 }
 
 main
 
-echo "[SETUP OK]"
+echo '[SETUP OK]'
