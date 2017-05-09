@@ -208,6 +208,9 @@ endif
 " And use F1 to Escape
 nnoremap <F1> <Esc>
 
+" When in insert mode, ress <F2> to go paste mode.
+set pastetoggle=<F2>
+
 " split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
