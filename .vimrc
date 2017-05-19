@@ -83,6 +83,12 @@ Plugin 'scrooloose/syntastic'       " systastic
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
 
+" javascript
+Plugin 'pangloss/vim-javascript'
+
+" go
+Plugin 'fatih/vim-go'
+
 " auto-completion stuff
 Plugin 'Valloric/YouCompleteMe'     " auto complete
 Plugin 'docunext/closetag.vim'		" auto complete html/xml tag
