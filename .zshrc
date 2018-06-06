@@ -1,8 +1,11 @@
+# Identify OS
+OS=`uname -s`
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/jonathang/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -86,7 +89,12 @@ source $ZSH/oh-my-zsh.sh
 
 # Add useful virtualenvwrapper for Python
 export WORKON_HOME=$HOME/.venv
-source /usr/local/bin/virtualenvwrapper.sh
+
+if [ $OS = "Darwin" ];then
+	source ~/Library/Python/2.7/bin/virtualenvwrapper.sh
+else
+	source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # Python pip auto completion
 eval "`pip completion --zsh`"

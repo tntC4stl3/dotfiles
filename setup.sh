@@ -65,7 +65,7 @@ main(){
     check_software_exist
     install_oh_my_zsh
     create_symlinks
-	install_vundle
+    install_vundle
 }
 
 main
