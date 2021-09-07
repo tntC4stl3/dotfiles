@@ -6,10 +6,19 @@
     ci = commit
     br = branch
     st = status
+    diff = diff --color
+    df = diff
+    dc = diff --cached
+    lg = log --color --graph --pretty=format:'%Cred%h%creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
     # git commit --amend is a convenient way to fix up the most recent commit.
     amend = commit --amend
 [color]
+    diff = auto
     ui = true
 [core]
     editor = vim
+[http]
+    postBuffer = 1048576000
+[init]
+    defaultBranch = master
